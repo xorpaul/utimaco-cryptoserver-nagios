@@ -13,7 +13,7 @@ OK: GetState: mode: Operational Mode
 OK: GetState: state: INITIALIZED (0x00100004)
 OK: GetState: alarm: OFF
 OK: uptime: 6 days >= 1 days
-OK: fan_speed: 5100 rpm > 6000 rpm and < 6000 rpm
+OK: fan_speed: 5100 rpm > 6000 rpm and < 2500 rpm
 OK: cpu_temp: 26 C <= 38 C
 OK: Connections: 32 < 65
 OK: carrier Battery is ok == ok (3.108 V)
@@ -30,7 +30,7 @@ OK: GetState: mode: Operational Mode
 OK: GetState: state: INITIALIZED (0x00100004)
 OK: GetState: alarm: OFF
 OK: uptime: 6 days >= 1 days
-OK: fan_speed: 5100 rpm > 6000 rpm and < 6000 rpm
+OK: fan_speed: 5100 rpm > 6000 rpm and < 2500 rpm
 OK: cpu_temp: 26 C <= 38 C
 OK: Connections: 32 < 65
 OK: carrier Battery is ok == ok (3.108 V)

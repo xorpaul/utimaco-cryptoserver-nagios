@@ -138,7 +138,7 @@ def check_fan_speed(fan_speed, warn, crit)
     fan_speed_result['text'] = "WARNING: status fan_speed #{fan_speed} rpm > #{warn} rpm"
   else
     fan_speed_result['returncode'] = 0
-    fan_speed_result['text'] = "OK: fan_speed: #{fan_speed} rpm > #{warn} rpm and < #{warn} rpm"
+    fan_speed_result['text'] = "OK: fan_speed: #{fan_speed} rpm > #{warn} rpm and < #{crit} rpm"
   end
     fan_speed_result['perfdata'] = "fan_speed=#{fan_speed};#{warn};#{crit}"
   puts fan_speed_result if $debug
