@@ -128,19 +128,19 @@ def check_uptime(uptime, warn, crit)
   return uptime_result
 end
 
-def check_fan_speed(fan_speed, warn, crit)
+def check_fan_speed(fan_speed, lower, higher)
   fan_speed_result = {}
-  if fan_speed < crit
+  if fan_speed > higher
     fan_speed_result['returncode'] = 2
-    fan_speed_result['text'] = "CRITICAL: status fan_speed #{fan_speed} rpm < #{crit} rpm"
-  elsif fan_speed > warn
+    fan_speed_result['text'] = "CRITICAL: status fan_speed #{fan_speed} rpm > #{higher} rpm"
+  elsif fan_speed < lower
     fan_speed_result['returncode'] = 2
-    fan_speed_result['text'] = "WARNING: status fan_speed #{fan_speed} rpm > #{warn} rpm"
+    fan_speed_result['text'] = "CRITICAL: status fan_speed #{fan_speed} rpm < #{lower} rpm"
   else
     fan_speed_result['returncode'] = 0
-    fan_speed_result['text'] = "OK: fan_speed: #{fan_speed} rpm > #{warn} rpm and < #{crit} rpm"
+    fan_speed_result['text'] = "OK: fan_speed: #{fan_speed} because it is between #{lower} rpm < #{fan_speed} < #{higher} rpm"
   end
-    fan_speed_result['perfdata'] = "fan_speed=#{fan_speed};#{warn};#{crit}"
+    fan_speed_result['perfdata'] = "fan_speed=#{fan_speed};#{lower};#{higher}"
   puts fan_speed_result if $debug
   return fan_speed_result
 end
@@ -364,15 +364,15 @@ status_thresholds['uptime'] = {}
 status_thresholds['uptime']['warn'] = 1
 status_thresholds['uptime']['crit'] = 1
 status_thresholds['fan_speed'] = {}
-status_thresholds['fan_speed']['warn'] = 6000
-status_thresholds['fan_speed']['crit'] = 2500
+status_thresholds['fan_speed']['higher'] = 6000
+status_thresholds['fan_speed']['lower'] = 2500
 status_thresholds['cpu_temp'] = {}
 status_thresholds['cpu_temp']['warn'] = 38
 status_thresholds['cpu_temp']['crit'] = 45
 status_data = check_status()
 results << check_state()
 results << check_uptime(status_data['uptime'], status_thresholds['uptime']['warn'], status_thresholds['uptime']['crit'])
-results << check_fan_speed(status_data['fan_speed'], status_thresholds['fan_speed']['warn'], status_thresholds['fan_speed']['crit'])
+results << check_fan_speed(status_data['fan_speed'], status_thresholds['fan_speed']['lower'], status_thresholds['fan_speed']['higher'])
 results << check_cpu_temp(status_data['cpu_temp'], status_thresholds['cpu_temp']['warn'], status_thresholds['cpu_temp']['crit'])
 results << check_connections(65, 100)
 results << check_battery()
